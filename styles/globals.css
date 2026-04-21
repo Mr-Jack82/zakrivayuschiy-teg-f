@@ -22,8 +22,10 @@ p,
 ul,
 ol,
 li {
+  font-size: inherit;
   margin: 0;
   padding: 0;
+  /* text-wrap: balance; */
 }
 
 a {
@@ -32,6 +34,7 @@ a {
 
 button,
 input {
+  appearance: none;
   color: currentColor;
   font-family: inherit;
   font-size: inherit;

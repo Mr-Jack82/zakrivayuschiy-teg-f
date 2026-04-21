@@ -16,6 +16,7 @@
   min-block-size: 100dvb;
   font-family: var(--main-font, "Inter"), sans-serif;
   font-size: var(--main-font-size, 18px);
+  line-height: 1;
   color: var(--color-text, #000);
   font-variation-settings: "wght" var(--font-weight-regular, 410);
   background-image: var(--background-gradient);
@@ -33,16 +34,14 @@
   flex-flow: column nowrap;
   align-items: center;
   font-family: var(--accent-font, "Press Start 2P"), fantasy;
-  font-weight: var(--title-font-weight);
+  font-weight: var(--font-weight-accent, 400);
   color: var(--color-text, #000);
-  line-height: 1;
   text-transform: uppercase;
-  font-weight: 400;
   text-align: center;
   border: var(--border-main, 2px solid #000);
   margin-block-end: 100px;
   gap: 20px;
-  padding: 122px 16px;
+  padding: 128px 16px;
   background-color: var(--color-bg, #fff);
 }
 
@@ -55,24 +54,43 @@
   white-space: nowrap;
 }
 
+/* Card layout */
+.card-list {
+  display: flex;
+  flex-flow: column;
+  gap: 50px;
+}
+
 .card {
   border: var(--border-main, 2px solid #000);
-  background-color: var(--background-color, #fff);
+  background-color: var(--color-bg, #fff);
 }
 
 .card__title {
-  padding: 10px 4px;
+  padding: 5px 10px;
+  letter-spacing: 0.015em;
   font-variation-settings: "wght" var(--font-weight-bold, 715);
-  font-size: var(--main-font-size, 18px);
-  line-height: 1;
+  /* font-size: var(--main-font-size, 18px); */
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  letter-spacing: 0.008em;
+  padding: 27px 26px 25px;
+}
+
+.card__text {
+  line-height: 1.17;
 }
 
 .image-container {
   display: flex;
+  overflow: hidden;
   position: relative;
   justify-content: center;
-  aspect-ratio: 1 / 1;
-  inline-size: 100%;
+  align-items: center;
   border-block-start: var(--border-main, 2px solid #000);
   border-block-end: var(--border-main, 2px solid #000);
 }
@@ -80,6 +98,8 @@
 .card__image {
   display: block;
   object-fit: cover;
+  aspect-ratio: 1 / 1;
+  inline-size: 100%;
 }
 
 .card__label {
@@ -92,12 +112,41 @@
   font-size: var(--accent-font-size, 14px);
   font-weight: var(--font-weight-accent, 400);
 
-  text-shadow: 
+  text-shadow:
     -1px -1px 0 var(--color-bg, #fff),
     1px -1px 0 var(--color-bg, #fff),
     -1px 1px 0 var(--color-bg, #fff),
     1px 1px 0 var(--color-bg, #fff);
   mix-blend-mode: hard-light;
+}
+
+/* Filters */
+.saturated-filter {
+  filter: saturate(30%);
+}
+
+.bright-filter {
+  filter: brightness(200%) contrast(150%);
+}
+
+.hue-filter {
+  filter: hue-rotate(30deg);
+}
+
+.negative-filter {
+  filter: invert(80%);
+}
+
+.sepia-filter {
+  filter: sepia(0.9);
+}
+
+.blurred-filter {
+  filter: blur(10px);
+}
+
+.mix-filter {
+  filter: hue-rotate(70deg) contrast(40%) saturate(150%) blur(2px);
 }
 
 @supports (text-stroke: 1px var(--color-bg, #fff)) or
@@ -109,13 +158,7 @@
   }
 }
 
-.card__content {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  padding: 25px;
-}
-
+/* Buttons */
 .buttons__wrapper {
   display: flex;
   gap: 12px;
@@ -123,10 +166,10 @@
 }
 
 .button {
-  /* display: flex; */
+  display: flex;
   position: relative;
-  /* justify-content: center; */
-  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
   border: var(--border-main, 2px solid #000);
   background-color: var(--color-bg, #fff);
   transition: box-shadow .3s ease, border .3s ease;
@@ -137,10 +180,42 @@
 .button:focus {
   outline: none;
   box-shadow: 2px 2px 0 var(--color-accent, #000);
-  transition: box-shadow .3s ease;
 }
 
-.card-icon__button {
+.button:focus-visible {
+  box-shadow: 2px 2px 0 var(--color-accent, #000);
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-accent, #000);
+  transition: transform 0.5s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button span {
+  position: relative;
+  z-index: 1;
+  color: var(--color-bg, #fff);
+  mix-blend-mode: difference;
+}
+
+/* All works without this piece, is it needed?? */
+.button .button__icon {
+  color: var(--color-bg);
+  mix-blend-mode: difference;
+}
+
+.card__icon-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -148,15 +223,123 @@
   padding: 0;
   outline: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
-.card__button {
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  outline: var(--border-main, 2px solid #000);
+  transition: border 0.3s ease;
+}
+
+.card__like-button {
   min-inline-size: 130px;
   min-block-size: 38px;
   /* padding: 12.5px 37px; */
 }
 
+.save-button {
+  gap: 8px;
+  margin-inline: auto;
+  margin-block-start: 50px;
+  padding: 15px 20px;
+}
+
+.save-button .button__icon {
+  position: relative;
+  inline-size: 21px;
+  block-size: 21px;
+  mix-blend-mode: difference;
+  color: var(--color-bg, #fff);
+}
+
 .button__text {
-  font-family: var(--accent-font, "Press Start 2P") fantasy;
-  font-size: var(--accent-font-size, 13px);
+  font-family: var(--accent-font, "Press Start 2P"), fantasy;
+  font-size: var(--accent-font-size, 14px);
+}
+
+/* Dialog */
+.dialog {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  padding-inline: 30px;
+  padding-block: 30px;
+  box-shadow: var(--box-shadow-inset, inset 0 0 0 2px #000);
+  font-family: var(--accent-font, "Press Start 2P"), fantasy;
+  font-weight: var(--font-weight-regular, 410);
+  font-size: var(--main-font-size, 18px);
+  max-inline-size: 353px;
+}
+
+.dialog__text {
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.dialog .button__icon {
+  flex-shrink: 0;
+  inline-size: 39px;
+  block-size: 39px;
+}
+
+.close__button {
+  inline-size: 100%;
+  text-transform: uppercase;
+  padding-block: 9px;
+}
+
+.dialog[open] {
+  display: flex;
+  flex-flow: column nowrap;
+  /* grid-template-columns: 0.17fr 1fr;
+  justify-content: center; */
+  align-items: stretch;
+  padding: 30px;
+  gap: 30px;
+}
+
+.modal__content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dialog[open]::backdrop {
+  background-color: var(--backdrop-bg, rgb(0 0 0 / 0.75));
+}
+
+@media (width < 376px) {
+  .header {
+    margin-block-end: 100px;
+  }
+
+  .card__title {
+    padding: 4px 11px;
+  }
+
+  .card__content {
+    padding: 30px 28px 25px;
+  }
+
+  .card__image {
+    inline-size: 371px;
+  }
+
+  .dialog {
+    padding-inline: 40px;
+    max-inline-size: 341px;
+  }
+
+  .save-button {
+    flex-direction: column;
+  }
+
+  .save-button .button__icon {
+    block-size: 28px;
+    inline-size: 28px;
+  }
 }
