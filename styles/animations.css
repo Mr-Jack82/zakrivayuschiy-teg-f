@@ -12,7 +12,7 @@
 
 @keyframes scale {
   from {
-    transform: scale(0);
+    transform: scale(1);
   }
   to {
     transform: scale(1.25);
@@ -21,10 +21,10 @@
 
 @keyframes sparks {
   from {
-    opacity: 1;
+    opacity: 0;
   }
   to {
-    opacity: 0;
+    opacity: 1;
   }
 }
 
@@ -51,10 +51,6 @@
   fill: transparent;
   transition: fill 0.3s linear;
 }
-
-/* .like-icon:hover {
-  cursor: pointer;
-} */
 
 .like-icon:hover .core {
   fill: var(--color-accent, #000);
@@ -92,87 +88,10 @@
 }
 
 .like-icon.is-liked {
-  animation: scale 0.3s ease-out 1 0.1s;
+  animation: scale 0.3s ease-in 0.1s alternate;
 }
 
 .like-icon.is-liked .sparks {
-  animation: sparks 0.3s ease-in 1 0.3s;
+  animation: sparks 0.3s ease-in 0.3s alternate;
 }
 
-/* @keyframes pulse {
-  from {
-    transform: scale(1);
-    pointer-events: none;
-  }
-  50% {
-    transform: scale(1.25);
-    pointer-events: none;
-  }
-  to {
-    transform: scale(1);
-    pointer-events: auto;
-  }
-}
-
-@keyframes spark {
-  from {
-    color: transparent;
-  }
-  50% {
-    color: var(--heart-sparks-color, #ff0000);
-  }
-  to {
-    color: transparent;
-  }
-}
-
-.like-icon {
-  color: transparent;
-}
-
-.like-icon .core {
-  transition: color 0.3s linear 0.03s;
-}
-
-.like-icon .main-body {
-  transition: color 0.3s linear;
-}
-
-.like-icon .contour {
-  color: var(--color-accent, #000);
-  transition: color 0.1s linear;
-}
-
-.like-icon:hover .core {
-  color: var(--color-accent, #000);
-  transition: color 0.3s linear;
-}
-
-.like-icon:hover .main-body {
-  color: var(--color-accent, #000);
-  transition: color 0.3s linear 0.05s;
-}
-
-.like-icon.is-liked .core {
-  color: var(--heart-sparks-color, #ff0000);
-  transition: color 0.3s linear;
-}
-
-.like-icon.is-liked .main-body {
-  color: var(--heart-sparks-color, #ff0000);
-  transition: color 0.3s linear 0.05s;
-}
-
-.like-icon.is-liked .contour {
-  color: var(--heart-sparks-color, #ff0000);
-  transition: color 0.3s linear 0.06s;
-}
-
-.like-icon.is-liked .heart {
-  transform-origin: center;
-  animation: pulse 0.3s ease-out 0.1s alternate;
-}
-
-.like-icon.is-liked .spark {
-  animation: spark 0.3s ease-out 0.3s alternate;
-} */
