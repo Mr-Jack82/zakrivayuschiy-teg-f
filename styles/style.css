@@ -312,16 +312,11 @@
   }
 
   .card__title {
-    line-height: initial;
-    /* padding: 5px 10px; */
+    line-height: 1.16;
   }
 
   .card__content {
     padding: 25px 26px;
-  }
-
-  .card__image {
-    inline-size: 371px;
   }
 
   .card__text {
